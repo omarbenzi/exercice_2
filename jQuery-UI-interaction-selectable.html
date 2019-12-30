@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+	<title>jQuery-UI : exercice d'interaction</title>
+	<style>
+		main    { margin: 50px; }
+		button  { padding: 10px; }
+		section { display: grid; grid-gap: 10px;  grid-template-columns: 50px 50px 50px; }
+		section> div { display: flex; width: 50px; height: 50px; justify-content: center; align-items: center; background-color: aquamarine; color: black; }
+		
+		#testMes { padding-top: 20px; opacity: 0; }
+		#compteur, #chiffre { font-size: 1.2em; font-weight: bold; color: brown; }
+		
+		#sectionTest .ui-selecting { background-color: #FECA40; }
+  		#sectionTest .ui-selected { background-color: #F39814; }
+		#sectionTest .ok { background-color: mediumseagreen; color: white; }
+		#sectionTest .ko { background-color: brown; color: white; }
+		#sectionTest .ras { background-color: #ccc; }
+	</style>
+	<script src="lib/jquery-3.4.1.min.js"></script>
+	<script src="lib/jquery-ui.min.js"></script>
+	<script>
+		$(window).on("load", function(){
+
+			/* coder l'animation avec l'interaction selectable de jQuery-UI */
+			
+		});
+	</script>
+</head>
+<body>
+	<main>
+		<button>Testez votre mémoire</button>
+		<p><b>Principe du test:</b><br>
+			Au clic sur le bouton, cette grille est remplie de chiffres compris entre 1 et 9.<br>
+			Vous avez &nbsp;<span id="chronoMemorisation"></span>&nbsp; secondes pour la mémoriser.<br>
+			Le contenu s'efface et vous avez <span id="chronoSelection">&nbsp;</span> secondes pour localiser un des chiffres.<br>
+		</p>
+		<p id="testMes">Vous avez 
+			<span id="compteur"></span>
+			pour sélectionner les cases qui avaient le chiffre 
+			<span id="chiffre"></span>
+		</p>
+		<section id="sectionTest">
+			<div></div><div></div><div></div>
+			<div></div><div></div><div></div>
+			<div></div><div></div><div></div>
+		</section>
+	</main>
+</body>
+</html>
