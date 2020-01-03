@@ -76,7 +76,6 @@
 					}
 				},
 				start: function (event, ui) {
-					console.log(ui.helper);
 					$(ui.helper).css("backgroundColor", "orange");
 					$(event.target).hide()
 				},
@@ -91,7 +90,9 @@
 					$(this).css("backgroundColor", "gray");
 				},
 				drop: function (event, ui) {
-					var draggable = ui.draggable, droppable = $(this),
+					var array = [];
+					var draggable = ui.draggable,
+						droppable = $(this),
 						draggableParent = draggable.parent();
 
 					if ($(this).children().length > 0) {
@@ -102,9 +103,23 @@
 					$(draggable).css("backgroundColor", "brown");
 					$(draggable).appendTo(this)
 					$(draggable).show()
-					//dragPos = draggable.position(), dropPos = droppable.position();
+
+					if (draggableParent.children().length == 1) {
+
+						($(' div[id^=alpha]')).each(function (e) {
+							console.log(this);
+							if (jQuery.inArray(this, array) == -1) {
+								array.push(parseInt(this.id.slice(-1)));
+							}
+							console.log(array);
+						})
+						erreurs = resultat.filter((e, i) => e != array[i]);
+						console.log(erreurs);
+					}
 				},
-				out: function (event, ui) { $(this).css("backgroundColor", "aqua") }
+				out: function (event, ui) { $(this).css("backgroundColor", "aqua") },
+				activate: function (event, ui) {
+				}
 			});
 			/* coder l'animation avec le drag and drop de jQuery-UI */
 
