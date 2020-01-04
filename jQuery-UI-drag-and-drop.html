@@ -80,6 +80,9 @@
 					$(event.target).hide()
 				},
 				stop: function (event, ui) {
+					console.log(event);
+
+					this.remove();
 				},
 				drag: function (event, ui) {
 				}
@@ -90,31 +93,29 @@
 					$(this).css("backgroundColor", "gray");
 				},
 				drop: function (event, ui) {
-					var array = [];
+					var ids = []; // va contenir les id pour lr resultat du test
 					var draggable = ui.draggable,
 						droppable = $(this),
 						draggableParent = draggable.parent();
-
-					if ($(this).children().length > 0) {
-						pays = $(this).children().first().detach();
-						$(pays).appendTo($(draggableParent))
+					if ($(this).children().length > 0) { // si le drop est sur un element qui a deja un pays 
+						pays = $(this).children().first().detach();// recuperation du pays existant  et 
+						$(pays).appendTo($(draggableParent))// et le remplacer par l'element dropé
 					}
 					draggable = $(draggable).detach();
 					$(draggable).css("backgroundColor", "brown");
 					$(draggable).appendTo(this)
-					$(draggable).show()
+					$(draggable).show()// l'afficher une arrivé à destination 
+					console.log($('#glissables div'));
 
-					if (draggableParent.children().length == 1) {
-
-						($(' div[id^=alpha]')).each(function (e) {
-							console.log(this);
-							if (jQuery.inArray(this, array) == -1) {
-								array.push(parseInt(this.id.slice(-1)));
+					if ($('#glissables div').length == 1) { // le 1 est a cause d'un element generé pa jQuery
+						// recuperation de l'oorder des pays
+						($(' div[id^=alpha]')).each(function (e) {// tous les div qui ont un id qui commence par alpha
+							if (jQuery.inArray(this, ids) == -1) { // si nous n'avon pas encore le id 
+								ids.push(parseInt(this.id.slice(-1)));
 							}
-							console.log(array);
 						})
-						erreurs = resultat.filter((e, i) => e != array[i]);
-						console.log(erreurs);
+						reponseErronee = resultat.filter((e, i) => e != ids[i]);
+						$("<h2><h2/>").text((7 - reponseErronee.length) + " Bonnes réponses sur " + 7).insertAfter("#glissables")
 					}
 				},
 				out: function (event, ui) { $(this).css("backgroundColor", "aqua") },
