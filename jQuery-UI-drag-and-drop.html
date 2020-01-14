@@ -76,6 +76,8 @@
 					}
 				},
 				start: function (event, ui) {// le clone en orange et l'original masqué
+				console.log(ui);
+				
 					$(ui.helper).css("backgroundColor", "orange");
 					$(event.target).hide()
 				}
@@ -89,9 +91,9 @@
 						draggable = ui.draggable,
 						droppable = $(this),
 						draggableParent = draggable.parent();
-					if ($(this).children().length > 0) { // si le drop est sur un element qui a deja un pays 
-						pays = $(this).children().first().detach();// recuperation du pays existant  et 
-						$(pays).appendTo(draggableParent)// et le remplacer par l'element dropé
+					if (droppable.children().length > 0) { // si le drop est sur un element qui a deja un pays 
+						pays = droppable.children().first().detach();// recuperation du pays existant  et 
+						$(pays).appendTo(draggableParent)// et l'envoyer à au pere de l'element dropé
 					}
 					draggable = $(draggable).detach();
 					$(draggable).css("backgroundColor", "brown");
@@ -109,6 +111,7 @@
 							.css("text-align", "center")
 							.insertAfter($("#glissables"));
 						$(bonnesReponses.map(x => x = '#alpha' + x).toString()).each(function (i, pays) { //les elements des bonne reponses 
+							
 							$(pays).css("backgroundColor", "green") // l'ajout de la couleur verte au elements correct
 						})
 						$(' div[id^=alpha]').draggable("destroy")// suppression de l'attribut du drag 

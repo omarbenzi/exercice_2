@@ -67,8 +67,49 @@
 	<script src="lib/jquery-ui.min.js"></script>
 	<script>
 		$(window).on("load", function () {
+			var NumbersOnscreen = {}
+			var counter = 5;
 
-			/* coder l'animation avec l'interaction selectable de jQuery-UI */
+			$('button').click(function () {
+				//1er etape du jeux 
+				$.each($('#sectionTest div'), function (i, e) {
+					$(e).text(Math.floor(Math.random() * 9) + 1);
+					$(e).attr('id', i);
+					NumbersOnscreen[i] = parseInt($(e).text());
+				});
+				var interval = setInterval(function () {
+					counter--;
+					if (counter < 0) {
+						clearInterval(interval); // l'arret du premier compteur 
+						var selectedNumbers = {};
+						var NumberToFind = NumbersOnscreen[Math.floor(Math.random() * Object.keys(NumbersOnscreen).length)]// recuperation d'un random element du tableau 
+						var counter_2 = 15;
+						var interval_2 = setInterval(function () {
+							// 2eme etape du jeux
+							$('#sectionTest div').
+								$('#testMes').css({ opacity: 1 });
+							$('#chiffre').text(NumberToFind);
+							$('#sectionTest div').click(function () {
+								selectedNumbers[$(this).attr('id')] = $(this).text()
+							}),
+
+								counter_2--
+							if (counter_2 < 0) {
+								clearInterval(interval_2);//l'arret du deuxieme compteur 
+								// affichage du resulta du jeux 
+								console.log(selectedNumbers);
+
+								// 2eme etape du jeux
+							} else {
+								$('#compteur').html("<b>" + counter_2 + "</b>");
+							}
+						}, 1000);
+						//1er etape du jeux 
+					} else {
+						$('#chronoMemorisation').html("<b>" + counter + "</b>");
+					}
+				}, 1000);
+			})
 
 		});
 	</script>
@@ -80,10 +121,10 @@
 		<p><b>Principe du test:</b><br>
 			Au clic sur le bouton, cette grille est remplie de chiffres compris entre 1 et 9.<br>
 			Vous avez &nbsp;<span id="chronoMemorisation"></span>&nbsp; secondes pour la mémoriser.<br>
-			Le contenu s'efface et vous avez <span id="chronoSelection">&nbsp;</span> secondes pour localiser un des
+			Le contenu s'efface et vous avez <span id="chronoSelection">&nbsp;15</span> secondes pour localiser un des
 			chiffres.<br>
 		</p>
-		<p id="testMes">Vous avez
+		<p id="testMes"> Vous avez
 			<span id="compteur"></span>
 			pour sélectionner les cases qui avaient le chiffre
 			<span id="chiffre"></span>
